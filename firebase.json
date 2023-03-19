@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "dist",
+    "site": "electrabackapp",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
