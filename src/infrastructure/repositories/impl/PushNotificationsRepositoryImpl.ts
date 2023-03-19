@@ -1,12 +1,13 @@
-import {Inject, Injectable, Logger} from "@nestjs/common";
+import {Inject, Injectable } from "@nestjs/common";
+import { logger as firebaseLogger } from "firebase-functions";
 import {MobileApplicationRepository} from "../MobileApplicationRepository";
 import {PushNotificationsRepository} from "../PushNotificationsRepository";
 import admin from "firebase-admin";
 
 @Injectable()
 export class PushNotificationsRepositoryImpl implements PushNotificationsRepository {
-    private readonly logger = new Logger(PushNotificationsRepositoryImpl.name);
-
+    // private readonly logger = new Logger(PushNotificationsRepositoryImpl.name);
+    private readonly logger = firebaseLogger;
     constructor(
         @Inject('MobileApplicationRepository')
         private mobileApplicationRepository: MobileApplicationRepository

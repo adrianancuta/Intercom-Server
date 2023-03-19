@@ -1,7 +1,8 @@
 import {Server, WebSocket} from "ws";
 import {createServer} from "http";
 import {Helpers} from "../utils/Helpers";
-import {Controller, Inject, Logger} from "@nestjs/common";
+import {Controller, Inject } from "@nestjs/common";
+import { logger as firebaseLogger } from "firebase-functions";
 import {ClientInformation, ClientType} from "./dto/ClientInformation";
 import {IntercomDevice, IntercomDeviceStatus} from "../../domain/entities/IntercomDevice";
 import {UserRepository} from "../../infrastructure/repositories/UserRepository";
@@ -23,8 +24,8 @@ const connectedMobileApplications: { [userId: string]: WebSocket[] } = {};
 export class WebSocketController {
     private wss: Server;
 
-    private readonly logger = new Logger(WebSocketController.name);
-
+    // private readonly logger = new Logger(WebSocketController.name);
+    private readonly logger = firebaseLogger;
     constructor(
         @Inject("UserRepository")
         private userRepository: UserRepository,
@@ -52,7 +53,7 @@ export class WebSocketController {
     }
 
     private sendIntercomConfigUpdate(updateEvent: { entity: IntercomDevice; changedProperties: string[] }) {
-        this.logger.debug(`Intercom device updated. Changed props: ${updateEvent.changedProperties.join(', ')}:\n${JSON.stringify(updateEvent.entity)}`);
+        thislogger.debug(`Intercom device updated. Changed props: ${updateEvent.changedProperties.join(', ')}:\n${JSON.stringify(updateEvent.entity)}`);
         if (this.isIntercomConfigUpdate(updateEvent)) {
             const connectedDevices = connectedIntercomDevices[updateEvent.entity.id];
             if (Array.isArray(connectedDevices)) {
