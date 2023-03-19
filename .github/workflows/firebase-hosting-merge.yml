@@ -17,4 +17,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ELECTRA_E06D5 }}'
           channelId: live
-          projectId: electrabackapp
+          projectId: electra-e06d5
+          appId: 1:890814005535:web:7e38b5a27a912f719fb02a
