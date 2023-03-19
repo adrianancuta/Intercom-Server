@@ -53,7 +53,7 @@ export class WebSocketController {
     }
 
     private sendIntercomConfigUpdate(updateEvent: { entity: IntercomDevice; changedProperties: string[] }) {
-        thislogger.debug(`Intercom device updated. Changed props: ${updateEvent.changedProperties.join(', ')}:\n${JSON.stringify(updateEvent.entity)}`);
+        this.logger.debug(`Intercom device updated. Changed props: ${updateEvent.changedProperties.join(', ')}:\n${JSON.stringify(updateEvent.entity)}`);
         if (this.isIntercomConfigUpdate(updateEvent)) {
             const connectedDevices = connectedIntercomDevices[updateEvent.entity.id];
             if (Array.isArray(connectedDevices)) {
