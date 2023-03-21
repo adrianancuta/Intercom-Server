@@ -19,6 +19,7 @@ jobs:
             HostName $SSH_HOST
             User $SSH_USER
             IdentityFile ~/.ssh/prod.key
+            IdentitiesOnly=yes
             StrictHostKeyChecking no
           END
         env:
