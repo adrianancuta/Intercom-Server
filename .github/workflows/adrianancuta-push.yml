@@ -27,11 +27,11 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: Stop the server
-        run: ssh prod 'sudo systemctl stop my-application'
+        run: ssh prod 'pm2 stop server'
 
       - name: Check out the source
-        run: ssh prod 'cd my-application && git fetch && git reset --hard origin/master'
+        run: ssh prod 'cd ~/home-server/Intercom-Server && git fetch && git reset --hard origin/master && git pull'
 
       - name: Start the server
         if: ${{ always() }}
-        run: ssh prod 'sudo systemctl start my-application'
+        run: ssh prod 'cd ~/home-server/Intercom-Server/dist && pm2 start main.js --server'
