@@ -12,13 +12,14 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/adrianancuta.key
-          chmod 600 ~/.ssh/adrianancuta.key
+          mkdir -p ~/.ssh/adrianancuta/
+          echo "$SSH_KEY" > ~/.ssh/adrianancuta/adrianancuta.key
+          chmod 600 ~/.ssh/adrianancuta/adrianancuta.key
           cat >>~/.ssh/config <<END
           Host adrianancuta
             HostName $SSH_HOST
             User $SSH_USER
-            IdentityFile ~/.ssh/adrianancuta.key
+            IdentityFile ~/.ssh/adrianancuta/adrianancuta.key
             IdentitiesOnly=yes
             StrictHostKeyChecking no
           END
@@ -28,10 +29,10 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: Stop the server
-        run: ssh -o adrianancuta 'pm2 stop server'
+        run: ssh adrianancuta 'pm2 stop server'
 
       - name: Check out the source
-        run: ssh -o adrianancuta 'cd ~/home-server/Intercom-Server && git fetch && git reset --hard origin/master && git pull'
+        run: ssh adrianancuta 'cd ~/home-server/Intercom-Server && git fetch && git reset --hard origin/master && git pull'
 
       - name: Build the source
         run: ssh adrianancuta 'cd ~/home-server/Intercom-Server && npm run build'
