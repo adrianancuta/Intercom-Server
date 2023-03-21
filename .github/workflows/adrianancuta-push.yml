@@ -19,7 +19,7 @@ jobs:
             HostName $SSH_HOST
             User $SSH_USER
             IdentityFile ~/.ssh/adrianancuta.key
-            IdentitiesOnly yes
+            IdentitiesOnly=yes
             StrictHostKeyChecking no
           END
         env:
@@ -28,10 +28,10 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: Stop the server
-        run: ssh adrianancuta 'pm2 stop server'
+        run: ssh -o adrianancuta 'pm2 stop server'
 
       - name: Check out the source
-        run: ssh adrianancuta 'cd ~/home-server/Intercom-Server && git fetch && git reset --hard origin/master && git pull'
+        run: ssh -o adrianancuta 'cd ~/home-server/Intercom-Server && git fetch && git reset --hard origin/master && git pull'
 
       - name: Build the source
         run: ssh adrianancuta 'cd ~/home-server/Intercom-Server && npm run build'
