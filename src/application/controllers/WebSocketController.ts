@@ -1,8 +1,7 @@
 import {Server, WebSocket} from "ws";
 import {createServer} from "http";
 import {Helpers} from "../utils/Helpers";
-import {Controller, Inject } from "@nestjs/common";
-import { logger as firebaseLogger } from "firebase-functions";
+import {Controller, Inject, Logger } from "@nestjs/common";
 import {ClientInformation, ClientType} from "./dto/ClientInformation";
 import {IntercomDevice, IntercomDeviceStatus} from "../../domain/entities/IntercomDevice";
 import {UserRepository} from "../../infrastructure/repositories/UserRepository";
@@ -24,8 +23,7 @@ const connectedMobileApplications: { [userId: string]: WebSocket[] } = {};
 export class WebSocketController {
     private wss: Server;
 
-    // private readonly logger = new Logger(WebSocketController.name);
-    private readonly logger = firebaseLogger;
+    private readonly logger = new Logger(WebSocketController.name);
     constructor(
         @Inject("UserRepository")
         private userRepository: UserRepository,

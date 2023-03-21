@@ -1,18 +1,16 @@
-import {Inject, Injectable } from "@nestjs/common";
-import { logger as firebaseLogger } from "firebase-functions";
+import {Inject, Injectable, Logger } from "@nestjs/common";
 import {MobileApplicationRepository} from "../MobileApplicationRepository";
 import {PushNotificationsRepository} from "../PushNotificationsRepository";
 import admin from "firebase-admin";
 
 @Injectable()
 export class PushNotificationsRepositoryImpl implements PushNotificationsRepository {
-    // private readonly logger = new Logger(PushNotificationsRepositoryImpl.name);
-    private readonly logger = firebaseLogger;
+    private readonly logger = new Logger(PushNotificationsRepositoryImpl.name);
     constructor(
         @Inject('MobileApplicationRepository')
         private mobileApplicationRepository: MobileApplicationRepository
     ) {
-        const serviceAccount = require("../../../../__config/firebase-config.json");
+        const serviceAccount = require("../../../../__config/electra-e06d5-firebase-adminsdk-8by7v-586aa7e2c5.json");
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount)
         });

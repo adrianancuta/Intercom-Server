@@ -1,7 +1,6 @@
 import {BaseEntity} from "../../../../domain/entities/base/BaseEntity";
 import {DiskRepository, RepositoryEvent} from "../../base/DiskRepository";
-import { logger as firebaseLogger } from "firebase-functions";
-// import {Logger} from "@nestjs/common";
+import {Logger} from "@nestjs/common";
 
 
 const fs = require('fs');
@@ -16,7 +15,7 @@ export class DiskRepositoryImpl<T extends BaseEntity> implements DiskRepository<
     private index: { [k: string]: number } = {};
     private entityBuilder: { from: (json: T) => T };
     private emitter: NodeJS.EventEmitter;
-    private readonly logger = firebaseLogger; //new Logger(DiskRepositoryImpl.name);
+    private readonly logger = new Logger(DiskRepositoryImpl.name);
 
     constructor(entityBuilder: { from: (json: T) => T }) {
         this.entityBuilder = entityBuilder;
