@@ -32,6 +32,9 @@ jobs:
       - name: Check out the source
         run: ssh prod 'cd ~/home-server/Intercom-Server && git fetch && git reset --hard origin/master && git pull'
 
+      - name: Build the source
+        run: ssh prod 'cd ~/home-server/Intercom-Server && npm run build'
+
       - name: Start the server
         if: ${{ always() }}
         run: ssh prod 'cd ~/home-server/Intercom-Server/dist && pm2 start main.js --server'
