@@ -24,6 +24,7 @@ export class UserRepositoryImpl extends DiskRepositoryImpl<User> {
                         if (user.password === result.toString('base64')) {
                             return resolve(user);
                         }
+                        return resolve(null);
                     });
                 });
             });
